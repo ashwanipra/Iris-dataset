@@ -1,0 +1,47 @@
+import  numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.metrics import accuracy_score ,confusion_matrix
+
+from sklearn.datasets import load_iris
+dataset=load_iris()
+X=dataset.data
+y=dataset.target
+
+test_dataframe=pd.DataFrame(X,columns=['sepal length','sepal width','petal length ','petal width'])
+pd.scatter_matrix(test_dataframe,figsize=(15,15),s=80,alpha=.8)
+
+setosa_or_versicolour=(y==0)|(y==1)
+X=X[setosa_or_versicolour]
+y=y[setosa_or_versicolour]
+
+from sklearn.model_selection import train_test_split
+X_train,X_test,y_train,y_test=train_test_split(X,y,random_state=0)
+
+
+
+
+from sklearn.neighbors import KNeighborsClassifier
+kn=KNeighborsClassifier()
+kn.fit(X_train,y_train)
+y_pred=kn.predict(X_test)
+print(accuracy_score(y_test,y_pred))
+
+
+from sklearn.svm import SVC
+svc_c=SVC(kernel='linear',C=100)
+svc_c.fit(X_train,y_train)
+y_pred=svc_c.predict(X_test)
+print(accuracy_score(y_test,y_pred))
+cm=confusion_matrix(y_test,y_pred)
+
+
+
+from sklearn.svm import SVC
+svc_c=SVC(kernel='linear',C=100)
+svc_c.fit(X_train,y_train)
+y_pred=svc_c.predict(X_test)
+print(accuracy_score(y_test,y_pred))
+cm=confusion_matrix(y_test,y_pred)
+36/38
+
